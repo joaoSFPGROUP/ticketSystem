@@ -38,7 +38,7 @@
   "build": {
     "appId": "com.sfpgroup.ticket",
     "productName": "Sistema Tickets",
-    "icon": "src/images/logo32x32",
+    "icon": "src\\images\\logo32x32.ico",
     "files": [
       {
         "from": "dist/",
@@ -50,6 +50,13 @@
     ],
     "win": {
       "target": "nsis"
+    },
+    "publish": [
+    {
+      "provider": "github",
+      "owner": "joaoSFPGROUP",
+      "repo": "ticketSystem"
     }
+  ]
   }
 }

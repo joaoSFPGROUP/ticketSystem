@@ -1,4 +1,4 @@
-const { app, BrowserWindow, screen: electronScreen, ipcMain } = require('electron');
+const { app, BrowserWindow, screen: electronScreen, ipcMain, dialog } = require('electron');
 const { autoUpdater } = require('electron-updater');
 const path = require('node:path');
 
@@ -24,9 +24,23 @@ app.whenReady().then(() => {
 
   autoUpdater.checkForUpdatesAndNotify();
 
-  autoUpdater.on('update-downloaded', () => {
-    autoUpdater.quitAndInstall();
-  });
+    autoUpdater.on('update-available', () => {
+      dialog.showMessageBox({
+        type: 'info',
+        title: 'Atualização disponível',
+        message: 'Uma nova atualização está a ser descarregada.',
+      });
+    });
+
+    autoUpdater.on('update-downloaded', () => {
+      dialog.showMessageBox({
+        type: 'info',
+        title: 'Atualização pronta',
+        message: 'Atualização descarregada. A aplicação vai reiniciar para aplicar a atualização.',
+      }).then(() => {
+        autoUpdater.quitAndInstall();
+      });
+    });
 
   ipcMain.on('login-success-user', () => {
     mainWindow?.loadFile(path.join(__dirname, 'pages', 'dashboard.html'));
