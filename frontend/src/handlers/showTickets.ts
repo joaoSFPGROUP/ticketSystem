@@ -39,6 +39,8 @@ async function loadTickets() {
 
         const tickets: Ticket[] = await ticketsResponse.json();
 
+        tickets.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+
         // Busca os nomes dos utilizadores
         const usersMap = await loadUsers(tickets);
         renderTickets(tickets, usersMap);
