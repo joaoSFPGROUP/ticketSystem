@@ -1,0 +1,55 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "clean": "shx rm -rf dist",
+    "prepare-dirs": "shx mkdir -p dist dist/pages dist/images dist/css",
+    "build:ts": "tsc",
+    "build:css": "postcss src/css/style.css -o dist/css/style.css",
+    "build:html": "shx cp src/pages/* dist/pages/ && shx cp index.html dist/",
+    "build:images": "shx cp src/images/* dist/images/",
+    "build:frontend": "npm run clean && npm run prepare-dirs && npm run build:ts && npm run build:css && npm run build:html && npm run build:images",
+    "build:backend": "npm --prefix ../backend run build",
+    "build": "npm run build:frontend && npm run build:backend",
+    "dev": "concurrently \"tsc --watch\" \"npm run build:frontend -- --watch\" \"npm run build:backend -- --watch\" \"electron .\"",
+    "start": "npm run build && electron .",
+    "dist": "npm run build && electron-builder"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Sistema de Tickets em Electron",
+  "dependencies": {
+    "typescript": "^5.8.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.3",
+    "@types/bcrypt": "^5.0.2",
+    "@types/electron": "^1.4.38",
+    "autoprefixer": "^10.4.21",
+    "concurrently": "^9.1.2",
+    "electron": "^35.2.0",
+    "electron-builder": "^26.0.12",
+    "postcss": "^8.5.3",
+    "shx": "^0.4.0",
+    "tailwindcss": "^3.4.17"
+  },
+  "build": {
+    "appId": "com.sfpgroup.ticket",
+    "productName": "Sistema Tickets",
+    "icon": "src/images/logo32x32",
+    "files": [
+      {
+        "from": "dist/",
+        "to": "./",
+        "filter": ["**/*"]
+      },
+      "main.js",
+      "package.json"
+    ],
+    "win": {
+      "target": "nsis"
+    }
+  }
+}

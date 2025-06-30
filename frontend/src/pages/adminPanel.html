@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' http://192.168.1.14:3000; img-src 'self' data:; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+    <link rel="icon" href="images/logo32x32.ico" type="image/x-icon"/>
+    <title>Sistema de Tickets</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+            background: url('../images/background.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        
+        nav {
+            position: relative;
+            height: 8rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2.5rem;
+            z-index: 10;
+            border-bottom: 2px solid black;
+            backdrop-filter: blur(4px);
+        }
+        
+        .boxes-container {
+            backdrop-filter: blur(4px);
+            position: relative;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            height: 600px;
+            padding: 2rem;
+            overflow-y: hidden;
+        }
+        
+        .clickable-box {
+            width: 400px;
+            height: 600px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .clickable-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .box-icon {
+            width: 400px;
+            height: 400px;
+            margin-bottom: 1.5rem;
+            object-fit: contain;
+            pointer-events: none;
+        }
+        
+        .box-title {
+            color: white;
+            font-size: 3rem;
+            text-align: center;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            pointer-events: none;
+        }
+
+        .back-button {
+            border: 0px solid black;
+            filter: brightness(0.7);
+            transition: filter 0.2s ease;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            opacity: 0.5;
+            transform: translateY(-2px);
+            background-color: transparent;
+            cursor: pointer;
+        }
+    </style>
+  </head>
+  <body class="relative min-h-screen">
+    <nav>
+        <button id="back-button" class="back-button"><img src="../images/backbutton.png" alt="Back"></button>
+    </nav>
+    
+    <div class="boxes-container">
+        <div class="clickable-box" id="createUserBox">
+            <img src="../images/adduser.png" alt="Add User" class="box-icon">
+            <h3 class="box-title">Adicionar Utilizador</h3>
+        </div>
+        
+        <div class="clickable-box" id="deleteUserBox">
+            <img src="../images/removeuser.png" alt="Remove User" class="box-icon">
+            <h3 class="box-title">Remover Utilizador</h3>
+        </div>
+    </div>
+  </body>
+  <script type="module" src="../handlers/adminPanel.js"></script>
+</html>
