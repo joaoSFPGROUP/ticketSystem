@@ -93,6 +93,8 @@ function renderTickets(tickets: Ticket[], usersMap: Map<number, string>) {
 
     tickets.forEach(ticket => {
         const userName = ticket.utilizador_id ? usersMap.get(ticket.utilizador_id) || `ID ${ticket.utilizador_id}` : 'Sem utilizador';
+        const auth = sessionStorage.getItem('auth');
+        const permissoes = auth ? JSON.parse(auth).permissions : null;
         
         const ticketElement = document.createElement('div');
         ticketElement.className = 'ticket-item';
@@ -118,11 +120,11 @@ function renderTickets(tickets: Ticket[], usersMap: Map<number, string>) {
             <h3 style="margin: 0; font-weight: bold; color: rgba(0,0,0,1);">${ticket.nome}</h3>
         </div>
         <p style="margin: 0; color: rgba(0,0,0,1);">${ticket.descricao}</p>
-        ${sessionStorage.getItem('permissoes') === 'admin' ? `
-            <button onclick="window.location.href='ticket.html?id=${ticket.id}'"
-                style="margin-top: 1rem; padding: 0.5rem 1rem; background: #1E90FF; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                Ver mais
-            </button>
+        ${permissoes === 'admin' ? `
+        <button onclick="window.location.href='ticket.html?id=${ticket.id}'"
+            style="margin-top: 1rem; padding: 0.5rem 1rem; background: #1E90FF; color: white; border: none; border-radius: 4px; cursor: pointer;">
+            Ver mais
+        </button>
         ` : ''}
         `;
 

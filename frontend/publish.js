@@ -28,8 +28,7 @@ build({
         provider: 'github',
         owner: 'joaoSFPGROUP',
         repo: 'ticketSystem',
-        releaseType: 'release',
-        releaseNotes: 'RELEASE_NOTES.md'
+        releaseType: 'release'
       }
     ]
   },
