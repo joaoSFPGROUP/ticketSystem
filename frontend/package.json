@@ -3,6 +3,7 @@
   "version": "1.0.2",
   "main": "main.js",
   "scripts": {
+    "publish": "node publish.js",
     "clean": "shx rm -rf dist",
     "prepare-dirs": "shx mkdir -p dist dist/pages dist/images dist/css",
     "build:ts": "tsc",
@@ -14,7 +15,7 @@
     "build": "npm run build:frontend && npm run build:backend",
     "dev": "concurrently \"tsc --watch\" \"npm run build:frontend -- --watch\" \"npm run build:backend -- --watch\" \"electron .\"",
     "start": "npm run build && electron .",
-    "dist": "npm run build && electron-builder"
+    "dist": "npm run build && npm run publish"
   },
   "keywords": [],
   "author": "",
@@ -30,6 +31,7 @@
     "@types/electron": "^1.4.38",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.1.2",
+    "dotenv": "^17.0.0",
     "electron": "^35.2.0",
     "electron-builder": "^26.0.12",
     "postcss": "^8.5.3",
@@ -53,13 +55,6 @@
     ],
     "win": {
       "target": "nsis"
-    },
-    "publish": [
-      {
-        "provider": "github",
-        "owner": "joaoSFPGROUP",
-        "repo": "ticketSystem"
-      }
-    ]
+    }
   }
 }
