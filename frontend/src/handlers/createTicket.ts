@@ -18,13 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const nome = nomeInput?.value || '';
             const descricao = descricaoInput?.value || '';
-            const estado = 'pendente'; // Sempre "pendente"
+            const estado = 'pendente';
 
             if (!nome || !descricao) {
                 return;
             }
 
-            // Obter nome do utilizador da sessão
             const auth = sessionStorage.getItem('auth');
             const user = auth ? JSON.parse(auth) : null;
 
@@ -51,8 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     form.reset();
                     nomeInput?.focus();
-
-                    // Delay para garantir que a UI atualize antes de enviar o evento
                     setTimeout(() => {
                         const { ipcRenderer } = require('electron');
                         if (user?.permissions === "admin") {

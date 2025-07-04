@@ -4,7 +4,7 @@
   "main": "main.js",
   "scripts": {
     "publish": "node publish.js",
-    "clean": "shx rm -rf dist",
+    "clean": "shx rm -rf dist && npm --prefix ../backend run clean",
     "prepare-dirs": "shx mkdir -p dist dist/pages dist/images dist/css",
     "build:ts": "tsc",
     "build:css": "postcss src/css/style.css -o dist/css/style.css",
@@ -18,7 +18,7 @@
     "dist": "npm run build && npm run publish"
   },
   "keywords": [],
-  "author": "",
+  "author": "João Ramalhosa",
   "license": "ISC",
   "description": "Sistema de Tickets em Electron",
   "dependencies": {
