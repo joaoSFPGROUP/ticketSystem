@@ -1,17 +1,15 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { getTickets, getTicketById, createTicket, loginUser, registerUser, deleteUser,  getAllUsers, updateTicketStatus, getUserById, deleteTicket } from '../models/ticketModel.js';
 
-// Controller para pegar todos os tickets
 export const getTicketsController = async (request: FastifyRequest, reply: FastifyReply) => {
   try {
     const tickets = await getTickets();
     return reply.send(tickets);
   } catch (error) {
-    return reply.status(500).send({ error: 'Erro ao buscar tickets' });
+    return reply.status(500).send({ error: 'Erro ao encontrar tickets' });
   }
 };
 
-// Controller para pegar um ticket por ID
 export const getTicketByIdController = async (request: FastifyRequest, reply: FastifyReply) => {
   const { id } = request.params as { id: string };
   try {
@@ -21,11 +19,10 @@ export const getTicketByIdController = async (request: FastifyRequest, reply: Fa
     }
     return reply.send(ticket);
   } catch (error) {
-    return reply.status(500).send({ error: 'Erro ao buscar ticket' });
+    return reply.status(500).send({ error: 'Erro ao encontrar ticket' });
   }
 };
 
-// Controller para criar um novo ticket
 export const createTicketController = async (request: FastifyRequest, reply: FastifyReply) => {
     const { nome, descricao, estado, utilizador_id } = request.body as {
       nome: string;
@@ -96,7 +93,6 @@ export const handleLogin = async (
       return reply.status(401).send({ message: 'Credenciais inválidas' });
     }
 
-    // Aqui você pode adicionar geração de token JWT se quiser
     return reply.send({
       message: 'Login bem-sucedido',
       user: {
@@ -123,7 +119,7 @@ export const handleRegister = async (
     return reply.code(200).send({ message: 'Utilizador criado com sucesso' });
   } catch (error: any) {
     console.error('Erro ao registrar usuário:', error.message);
-    return reply.status(500).send({ message: 'Erro ao registrar usuário', erroOriginal: error?.message });
+    return reply.status(500).send({ message: 'Erro ao registrar utilizador', erroOriginal: error?.message });
   }
 };
 
@@ -141,13 +137,13 @@ export const deleteUserController = async (
     const deleted = await deleteUser(userId);
 
     if (deleted) {
-      return reply.status(200).send({ message: 'Usuário deletado com sucesso' });
+      return reply.status(200).send({ message: 'Utilizador removido com sucesso' });
     } else {
-      return reply.status(404).send({ error: 'Usuário não encontrado' });
+      return reply.status(404).send({ error: 'Utilizador não encontrado' });
     }
   } catch (error) {
     console.error(error);
-    return reply.status(500).send({ error: 'Erro ao deletar usuário' });
+    return reply.status(500).send({ error: 'Erro ao remover utilizador' });
   }
 };
 
@@ -160,7 +156,7 @@ export const getAllUsersController = async (
     return reply.status(200).send(users);
   } catch (error) {
     console.error(error);
-    return reply.status(500).send({ error: 'Erro ao buscar usuários' });
+    return reply.status(500).send({ error: 'Erro ao encontrar utilizadores' });
   }
 };
 
@@ -174,12 +170,12 @@ export const getUserByIdController = async (
     const user = await getUserById(Number(id));
 
     if (!user) {
-      return reply.status(404).send({ error: 'Usuário não encontrado' });
+      return reply.status(404).send({ error: 'Utilizador não encontrado' });
     }
 
     return reply.send(user);
   } catch (error) {
-    console.error('Erro ao buscar usuário:', error);
-    return reply.status(500).send({ error: 'Erro ao buscar usuário' });
+    console.error('Erro ao buscar utilizador:', error);
+    return reply.status(500).send({ error: 'Erro ao encontrar utilizador' });
   }
 };

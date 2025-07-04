@@ -39,7 +39,7 @@ export const createTables = async () => {
       nome TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL,
       permissions TEXT DEFAULT 'user',
-      created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      created_at TEXT DEFAULT (DATETIME('now', '+1 hours'))
     );
   `;
 
@@ -50,10 +50,11 @@ export const createTables = async () => {
       descricao TEXT NOT NULL,
       estado TEXT DEFAULT 'aberto',
       utilizador_id INTEGER,
-      created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+      created_at TEXT DEFAULT (DATETIME('now', '+1 hours')),
       FOREIGN KEY (utilizador_id) REFERENCES utilizadores(id) ON DELETE SET NULL
     );
   `;
+
 
   try {
     await db.exec(createUtilizadoresTable);
